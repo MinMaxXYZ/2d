@@ -7,8 +7,9 @@
 ## Main steps
 - Read 2 images (background, front / side)
 - Subtract 2 images, generate the diff_image
-- Threshold diff_image (Ostu or adaptive threshold)
-- Apply the Canny filter
+- Convert to grayscale and normalize
+- Apply gaussian blur and Canny edge detector
+- Dilate to close gaps
 - Apply the freeman 8 connected chain codes
 
 ## How to run it
