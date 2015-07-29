@@ -2,12 +2,12 @@ import numpy as np
 import cv2
     
 def main():
-    background = cv2.imread('background.jpg', 0)
-    front1 = cv2.imread('front1.jpg', 0)
+    background = cv2.imread('../images/background.jpg', 0)
+    front1 = cv2.imread('../images/front1.jpg', 0)
 
     diff1 = front1 - background
 
-    ret1,th1 = cv2.threshold(diff1,127,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    ret1,th1 = cv2.threshold(diff1,210,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
     edges1 = cv2.Canny(diff1,100,200)
 
