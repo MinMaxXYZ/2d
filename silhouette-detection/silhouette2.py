@@ -28,4 +28,7 @@ cv2.imshow("Mean Thresh", thresh)
 thresh = cv2.adaptiveThreshold(blurred, 255,
     cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 15, 3)
 cv2.imshow("Gaussian Thresh", thresh)
+
+canny = cv2.Canny(front, 30, 150)
+cv2.imshow("Canny", canny)
 cv2.waitKey(0)
