@@ -23,17 +23,21 @@ def main():
     # Convert different image to gray
     diff1 = cv2.cvtColor(diff1,cv2.COLOR_BGR2GRAY)
 
+    # normalize 
+    cv2.normalize(diff1, diff1, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+
     # Binary different image
-    # increase second params to reduce big salt and peppersize noise
-    blur = cv2.medianBlur(diff1,9) 
-    #ret1,th1 = cv2.threshold(blur,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    # Increase second params to reduce big salt and peppersize noise
+    blur = cv2.GaussianBlur(diff1,(3,3),0) 
+
+    #ret1,th1 = cv2.threshold(blur,127,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
     # Apply the canny filter to the different
-    #edges1 = cv2.Canny(diff1,100,200)
+    edges1 = cv2.Canny(blur,0,40)
 
     # View the result
     while(1):
-        cv2.imshow('image', blur)
+        cv2.imshow('image', edges1)
         k = cv2.waitKey(33)
         if k==27:    # Esc key to stop
             break
