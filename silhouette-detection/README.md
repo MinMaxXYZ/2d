@@ -10,6 +10,10 @@
 - Convert to grayscale and normalize
 - Apply gaussian blur and Canny edge detector
 - Dilate to close gaps
+- Flood fill the image from borders
+- Erode to account for previous dilation
+- Find largest contour
+- Mask original image
 - Apply the freeman 8 connected chain codes
 
 ## How to run it

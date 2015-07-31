@@ -15,29 +15,37 @@ def main():
 
     # Change all images back to bgr image
     background = cv2.cvtColor(hsv_background,cv2.COLOR_HSV2BGR)
-    front1 = cv2.cvtColor(hsv_front1,cv2.COLOR_HSV2BGR)
+    front = cv2.cvtColor(hsv_front1,cv2.COLOR_HSV2BGR)
 
     # Get the different between background image an front view image
-    diff1 = cv2.absdiff(background, front1)
+    diff = cv2.subtract(background, front)
 
     # Convert different image to gray
-    diff1 = cv2.cvtColor(diff1,cv2.COLOR_BGR2GRAY)
+    diff = cv2.cvtColor(diff,cv2.COLOR_BGR2GRAY)
 
     # normalize 
-    cv2.normalize(diff1, diff1, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
+    cv2.normalize(diff, diff, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX)
 
     # Binary different image
     # Increase second params to reduce big salt and peppersize noise
-    blur = cv2.GaussianBlur(diff1,(3,3),0) 
+    median = cv2.medianBlur(diff, 5)
 
-    #ret1,th1 = cv2.threshold(blur,127,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    # Remove small object
+    blur = cv2.GaussianBlur(median,(5,5),0) 
 
     # Apply the canny filter to the different
-    edges1 = cv2.Canny(blur,0,40)
+    edges = cv2.Canny(blur,0,40)
+
+    # Dilate to close the gaps
+    kernel = np.ones((5,5),np.uint8)
+    dilation = cv2.dilate(edges,kernel,iterations = 1)
+
+    # Floodfill the image by border
+    
 
     # View the result
     while(1):
-        cv2.imshow('image', edges1)
+        cv2.imshow('image', dilation)
         k = cv2.waitKey(33)
         if k==27:    # Esc key to stop
             break
