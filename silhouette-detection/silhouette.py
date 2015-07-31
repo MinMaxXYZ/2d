@@ -14,6 +14,10 @@ def main():
     # Floodfill the image by border
     floodfilled = floodfill(diff) 
 
+    #img = cv2.imread('j.png',0)
+    #kernel = np.ones((5,5),np.uint8)
+    #erosion = cv2.erode(img,kernel,iterations = 1)
+
     # View the result
     while(1):
         cv2.imshow('image', floodfilled)
